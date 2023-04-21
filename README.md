@@ -9,7 +9,7 @@ Generates reconciliation reports
 Can handle large amounts of data
 
 Prerequisites
-.NET Framework 4.7.2 or later
+.NET Framework 4.8 or later
 Microsoft Office or a compatible suite (for Excel file processing)
 
 Installation
