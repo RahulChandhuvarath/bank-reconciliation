@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ghostscript.NET.Rasterizer;
 using System.Drawing;
-using Ghostscript.NET;
 using System.IO;
 using System.Drawing.Imaging;
+using Spire.Pdf;
+using Spire.Pdf.Graphics;
+
+
 
 namespace Reconciliation
 {
@@ -16,36 +18,30 @@ namespace Reconciliation
         public static List<string> ConvertToImage(string pdfPath)
         {
             List<string> paths = new List<string>();
-            // Load the PDF file into a GhostscriptRasterizer object
-            using (var rasterizer = new GhostscriptRasterizer())
+         
+
+            PdfDocument pdfDocument = new PdfDocument();
+            pdfDocument.LoadFromFile(pdfPath);
+
+            for (int i = 0; i < pdfDocument.Pages.Count; i++)
             {
-                rasterizer.Open(pdfPath);
-
-                // Loop through each page in the PDF file
-                for (int pageNumber = 1; pageNumber <= rasterizer.PageCount; pageNumber++)
-                {
-                    // Set the resolution for the output image
-                    var settings = new GhostscriptImageDevice();
-                    settings.GraphicsAlphaBits = GhostscriptImageDeviceAlphaBits.V_4;
-                    settings.TextAlphaBits = GhostscriptImageDeviceAlphaBits.V_4;
-                    settings.ResolutionXY = new GhostscriptImageDeviceResolution(600, 600);
 
 
-                    // Render the current page of the PDF file to a PNG image
-                    using (var image = rasterizer.GetPage(300, pageNumber))
-                    {
-                        string fullPath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(pdfPath) + pageNumber.ToString() + ".png");
-                        //string fullPath2 = Path.Combine(Path.GetDirectoryName(pdfPath), Path.GetFileNameWithoutExtension(pdfPath) + pageNumber.ToString() + "_X.png");
-                        paths.Add(fullPath);
-                        image.Save(fullPath);
+                Image emf = pdfDocument.SaveAsImage(i, Spire.Pdf.Graphics.PdfImageType.Bitmap,600,600);
+                //Image zoomImg = new Bitmap((int)(emf.Size.Width), (int)(emf.Size.Height));
+                //using (Graphics g = Graphics.FromImage(zoomImg))
+                //{
+                //    g.ScaleTransform(2.0f, 2.0f);
+                //    g.DrawImage(emf, new Rectangle(new Point(0, 0), emf.Size), new Rectangle(new Point(0, 0), emf.Size), GraphicsUnit.Pixel);
+                //}
 
-                        //MakeGrayscale(fullPath, fullPath2);
-                    }
-
-
-                }
-
+                string fullPath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(pdfPath) + i.ToString() + ".png");
+                paths.Add(fullPath);
+                emf.Save(fullPath, ImageFormat.Png);
             }
+
+            pdfDocument.Close();
+
             return paths;
 
         }
