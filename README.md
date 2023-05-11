@@ -21,7 +21,7 @@ NuGet Pakcage to Install
 
 1. Tesseract - Apache 2.0 license
 2. Image Processer - MIT
-3. GhostScript.NET - GPL v3.0
+3. Free SPire PDF
 
 ->>>System References
 
