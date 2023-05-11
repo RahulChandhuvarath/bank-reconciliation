@@ -360,11 +360,11 @@ namespace Reconciliation
                 Range cellRange = wk.Range[wk.Cells[row, column], wk.Cells[row, column]];
                 if (cellRange.Value == null)
                     return default(string);
-                //try
-                //{
-                //    return  Convert.ToDateTime(cellRange.Value).ToString("dd/MM/yyyy");
-                //}
-                //catch { }
+                try
+                {
+                    return Convert.ToDateTime(cellRange.Value).ToString("dd/MM/yyyy");
+                }
+                catch { }
                 string dateString = Convert.ToString(cellRange.Value);
                 string[] formats = { "dd-MMM-yyyy", "dd MMMM yyyy", "d/M/yyyy", "dd/M/yyyy", "d/MM/yyyy", "dd/MM/yyyy", "dd-MM-yyyy", "d-M-yyyy", "dd MMM", "yyyy/MM/dd", "dd MMM yyyy", "MMMM dd, yyyy", "MMM dd, yyyy", "yyyy MMMM dd", "yyyy-MMM-dd", "yyyy MMM dd", "MMM yyyy", "MM/dd/yyyy", "yyyy-MM-dd", "MM-dd-yyyy", "yyyy.MM.dd" }; // add more formats as needed
 
