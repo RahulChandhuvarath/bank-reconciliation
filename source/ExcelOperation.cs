@@ -366,7 +366,8 @@ namespace Reconciliation
                 }
                 catch { }
                 string dateString = Convert.ToString(cellRange.Value);
-                string[] formats = { "dd-MMM-yyyy", "dd MMMM yyyy", "d/M/yyyy", "dd/M/yyyy", "d/MM/yyyy", "dd/MM/yyyy", "dd-MM-yyyy", "d-M-yyyy", "dd MMM", "yyyy/MM/dd", "dd MMM yyyy", "MMMM dd, yyyy", "MMM dd, yyyy", "yyyy MMMM dd", "yyyy-MMM-dd", "yyyy MMM dd", "MMM yyyy", "MM/dd/yyyy", "yyyy-MM-dd", "MM-dd-yyyy", "yyyy.MM.dd" }; // add more formats as needed
+                string[] formats = { "dd-MMM-yyyy", "dd MMMM yyyy", "d/M/yyyy", "dd/M/yyyy", "d/MM/yyyy", "dd/MM/yyyy", "dd-MM-yyyy", "d-M-yyyy", "dd MMM", "yyyy/MM/dd", "dd MMM yyyy", "MMMM dd, yyyy", "MMM dd, yyyy", "yyyy MMMM dd", "yyyy-MMM-dd", "yyyy MMM dd", "MMM yyyy", "MM/dd/yyyy", "yyyy-MM-dd", "MM-dd-yyyy", "yyyy.MM.dd",
+                "dd-MMM-yy", "dd MMMM yy", "d/M/yy", "dd/M/yy", "d/MM/yy", "dd/MM/yy", "dd-MM-yy", "d-M-yy", "dd MMM", "yy/MM/dd", "dd MMM yy", "MMMM dd, yy", "MMM dd, yy", "yy MMMM dd", "yy-MMM-dd", "yy MMM dd", "MMM yy", "MM/dd/yy", "yy-MM-dd", "MM-dd-yy", "yy.MM.dd" }; // add more formats as needed
 
                 foreach (string format in formats)
                 {
