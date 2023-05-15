@@ -8,6 +8,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
+using System.Diagnostics;
 
 
 
@@ -26,21 +27,24 @@ namespace Reconciliation
             for (int i = 0; i < pdfDocument.Pages.Count; i++)
             {
 
-
-                Image emf = pdfDocument.SaveAsImage(i, Spire.Pdf.Graphics.PdfImageType.Bitmap,600,600);
-                //Image zoomImg = new Bitmap((int)(emf.Size.Width), (int)(emf.Size.Height));
-                //using (Graphics g = Graphics.FromImage(zoomImg))
-                //{
-                //    g.ScaleTransform(2.0f, 2.0f);
-                //    g.DrawImage(emf, new Rectangle(new Point(0, 0), emf.Size), new Rectangle(new Point(0, 0), emf.Size), GraphicsUnit.Pixel);
-                //}
-
-                string fullPath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(pdfPath) + i.ToString() + ".png");
+                string fullPath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(pdfPath) +"_"+ (i+1).ToString() + ".png");
                 paths.Add(fullPath);
-                emf.Save(fullPath, ImageFormat.Png);
             }
 
             pdfDocument.Close();
+
+            // Create a new process instance
+            Process process = new Process();
+          
+            // Configure the process start info
+            process.StartInfo.FileName = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Pdf2Image.exe");   // Specify the path to your EXE file
+            process.StartInfo.CreateNoWindow = true;  // Set to true to hide the command prompt window
+            process.StartInfo.UseShellExecute = false;  // Set to false to redirect input/output
+
+            process.StartInfo.Arguments = pdfPath;
+
+            // Start the process
+            process.Start();
 
             return paths;
 
