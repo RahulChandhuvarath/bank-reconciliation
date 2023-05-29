@@ -41,7 +41,7 @@ namespace Reconciliation
             process.StartInfo.CreateNoWindow = true;  // Set to true to hide the command prompt window
             process.StartInfo.UseShellExecute = false;  // Set to false to redirect input/output
 
-            process.StartInfo.Arguments = pdfPath;
+            process.StartInfo.Arguments = $"\"{pdfPath}\"";
 
             // Start the process
             process.Start();
